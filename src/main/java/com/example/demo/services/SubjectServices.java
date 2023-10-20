@@ -1,5 +1,8 @@
 package com.example.demo.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,20 @@ public class SubjectServices {
     public Subject savSubject(Subject subject){
         subject.setId(sequenceGenerator.generateSequence("subject_squence"));
         return this.subjectRepository.save(subject);
+    }
+
+     public List<Subject> getAllSubject(){
+        
+        return this.subjectRepository.findAll();
+    }
+
+    public Subject getSubjectById(Long id){
+        Optional<Subject> optionals=subjectRepository.findById(id);
+        if(optionals.isPresent()){
+            return optionals.get();
+        }else{
+            return null;
+        }
     }
     
 }
